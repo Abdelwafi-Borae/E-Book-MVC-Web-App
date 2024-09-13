@@ -1,0 +1,53 @@
+﻿@model IEnumerable<E_Book_Model.Catogery>
+@{
+	ViewData["Title"] = "Index";
+}
+
+
+<div class="container p-2">
+	<div class="row pt-4">
+		<div class="col-6"><h2 class="text-primary">   Catogery List</h2></div>
+		<div class="col-6 text-end">
+			<a asp-action="Create" asp-controller="Catogery" class="btn btn-primary">
+				<i class="bi bi-plus-circle"></i>&nbsp   Create New Catogery
+			</a>
+		</div>
+	</div>
+
+	<br />
+	<table class="table table-bordered table-striped   " style="width:100%">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Name</th>
+				<th scope="col">DisplayOrder</th>
+				<th scope="col">CreatedDateTime</th>
+				<th scope="col">Edite</th>
+				<th scope="col">Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var obj in Model)
+			{
+				<tr>
+					<th scope="row">@obj.Id</th>
+					<td>@obj.Name</td>
+					<td>@obj.DisplayOrder</td>
+					<td>@obj.CreatedDateTime</td>
+					<td><div class="w-75 bnt-group" role="group">
+						<a asp-action="Edite" asp-controller="Catogery" asp-route-Id=@obj.Id class="btn btn-primary mx-2">
+							<i class="bi bi-pencil-square"></i> Edit</a>
+						</div>
+					</td>
+					<td>
+						<div class="w-75 bnt-group" role="group">
+							<a asp-action="Delete" asp-controller="Catogery" asp-route-Id=@obj.Id class="btn btn-danger mx-2">
+								<i class="bi bi-trash3"></i> Delete
+							</a>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
