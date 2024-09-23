@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-BookWeb", "E-BookWeb\E-Bo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Book-Models", "E-Book-Model\E-Book-Models.csproj", "{3525534A-CC75-48AD-8A2B-43D5C7370449}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Book-DataAccess", "E-Book-DataAccess\E-Book-DataAccess.csproj", "{5BD25CBB-0946-4E76-98FA-A51CDBFB2F88}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Book_DataAccess", "E-Book-DataAccess\E-Book_DataAccess.csproj", "{5BD25CBB-0946-4E76-98FA-A51CDBFB2F88}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_Book_Utility", "E_Book_Utility\E_Book_Utility.csproj", "{30EDC1CD-6396-49A6-96AA-D19B118BF480}"
 EndProject

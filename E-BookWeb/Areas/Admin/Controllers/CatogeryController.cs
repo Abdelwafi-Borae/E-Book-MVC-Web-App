@@ -1,20 +1,20 @@
-﻿using E_Book_Model;
-using E_BookWeb.Data;
- 
+﻿using E_Book_DataAccess.Data;
+using E_Book_DataAccess.Repository.IRepository;
+using E_Book_Model;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_BookWeb.Controllers
+namespace E_BookWeb.Areas.Admin.Controllers
 {
     public class CatogeryController : Controller
     {
-        private readonly AppDbContext _AppDbContext;
-        public CatogeryController(AppDbContext appDbContext)
+        private readonly IUnitOfWork _unit;
+        public CatogeryController(IUnitOfWork Db)
         {
-            _AppDbContext = appDbContext;
+            _unit = Db;
         }
         public IActionResult Index()
         {
-            IEnumerable<Catogery> CatogryList = _AppDbContext.Catogeries;
+            IEnumerable<Catogery> CatogryList = _unit.Catogery.GetAll();
             return View(CatogryList);
         }
         [HttpGet]
@@ -29,12 +29,12 @@ namespace E_BookWeb.Controllers
         {
             if (catogery.Name == catogery.DisplayOrder.ToString())
             {
-                ModelState.AddModelError("ss", "name and display can't match");
+                ModelState.AddModelError("Name", "name and display can't match");
             }
             if (ModelState.IsValid)
             {
-                _AppDbContext.Catogeries.Add(catogery);
-                _AppDbContext.SaveChanges();
+                _unit.Catogery.Add(catogery);
+                _unit.Save();
                 TempData["success"] = "add data seccessfully";
                 return RedirectToAction("Index");
             }
@@ -46,13 +46,13 @@ namespace E_BookWeb.Controllers
         public IActionResult Edite(int? Id)
         {
             if (Id == null || Id == 0) return NotFound();
-            var catogery= _AppDbContext.Catogeries.Find(Id);
-            if(catogery == null) return NotFound();
+            var catogery = _unit.Catogery.GetFirstOrDefault(c => c.Id == Id);
+            if (catogery == null) return NotFound();
             return View(catogery);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edite(Catogery catogery )
+        public IActionResult Edite(Catogery catogery)
         {
             if (catogery.Name == catogery.DisplayOrder.ToString())
             {
@@ -60,8 +60,8 @@ namespace E_BookWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                _AppDbContext.Catogeries.Update(catogery);
-                _AppDbContext.SaveChanges();
+                _unit.Catogery.Update(catogery);
+                _unit.Save();
                 TempData["success"] = "update data seccessfully";
                 return RedirectToAction("Index");
             }
@@ -73,7 +73,7 @@ namespace E_BookWeb.Controllers
         public IActionResult Delete(int? Id)
         {
             if (Id == null || Id == 0) return NotFound();
-            var catogery = _AppDbContext.Catogeries.Find(Id);
+            var catogery = _unit.Catogery.GetFirstOrDefault(c => c.Id == Id);
             if (catogery == null) return NotFound();
             return View(catogery);
         }
@@ -82,14 +82,14 @@ namespace E_BookWeb.Controllers
         public IActionResult DeletePost(int? Id)
         {
 
-            var catogery = _AppDbContext.Catogeries.Find(Id);
-            if(catogery == null) return NotFound();
-            _AppDbContext.Catogeries.Remove(catogery);
-                _AppDbContext.SaveChanges();
+            var catogery = _unit.Catogery.GetFirstOrDefault(c => c.Id == Id);
+            if (catogery == null) return NotFound();
+            _unit.Catogery.Remove(catogery);
+            _unit.Save();
             TempData["success"] = "delete data seccessfully";
-                return RedirectToAction("Index");
-            
-           
+            return RedirectToAction("Index");
+
+
 
 
         }

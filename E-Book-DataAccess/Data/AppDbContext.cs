@@ -1,7 +1,7 @@
 ﻿using E_Book_Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace E_BookWeb.Data
+namespace E_Book_DataAccess.Data
 {
     public class AppDbContext:DbContext
     {
@@ -10,5 +10,7 @@ namespace E_BookWeb.Data
 
         }
         public DbSet<Catogery> Catogeries { get; set; }
+        public DbSet<Cover_type> Cover_Types { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }

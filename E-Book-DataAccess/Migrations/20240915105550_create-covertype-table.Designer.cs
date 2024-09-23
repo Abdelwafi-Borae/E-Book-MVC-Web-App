@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_BookWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240831125013_AddCatogeryToDb")]
-    partial class AddCatogeryToDb
+    [Migration("20240915105550_create-covertype-table")]
+    partial class createcovertypetable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace E_BookWeb.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("E_BookWeb.Models.Catogery", b =>
+            modelBuilder.Entity("E_Book_Model.Catogery", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,6 +45,23 @@ namespace E_BookWeb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Catogeries");
+                });
+
+            modelBuilder.Entity("E_Book_Model.Cover_type", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cover_Types");
                 });
 #pragma warning restore 612, 618
         }
